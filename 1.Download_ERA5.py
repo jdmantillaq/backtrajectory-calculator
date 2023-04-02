@@ -7,7 +7,6 @@ import os
 
 def walk_path_target(path, target):
     # function to walk through the directory path and find target file(s)
-
     import glob  # importing glob library to find pathnames matching a
     # specified pattern
     import os  # importing os library to interact with the operating system
@@ -31,7 +30,8 @@ variables = {'uwnd': 'u_component_of_wind',
 level = [825]
 
 # define the directory path to save the downloaded data
-directory = 'datos/'
+directory = 'ERA5_data/'
+
 # define the time range for which data needs to be downloaded
 time_range = pd.date_range('1980-01-01', '1980-02-01', freq='D')
 

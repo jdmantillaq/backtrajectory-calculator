@@ -270,9 +270,46 @@ def save_nc(dictionary, file_out):
     del(nw)
 
 
+def read_nc(file_i):
+    """
+    Function to read netCDF files.
+
+    Args:
+        file_i (str): File path of the netCDF file to be read.
+
+    Returns:
+        fechas (array): Array of date and time values.
+        dates (array): Array of numerical time values.
+        plev_values (array): Array of pressure level values.
+        lat_values (array): Array of latitude values.
+        lon_values (array): Array of longitude values.
+        sh_values (array): Array of specific humidity values.
+    """
+    import numpy as np  # Mathematical operations and matrix handling
+    import pandas as pd  # Date handling
+    from netCDF4 import Dataset
+
+    Variable = Dataset(file_i, 'r')
+
+    dates = np.array(Variable.variables['time'][:])
+
+    fechas = pd.to_datetime("1900-01-01 00:00:00") \
+        + pd.to_timedelta(dates, unit='h')
+
+    lon_values = np.array(Variable.variables['lon'][:])
+    lat_values = np.array(Variable.variables['lat'][:])
+    sh_values = np.array(Variable.variables['q'][:])
+    plev_values = np.array(Variable.variables['level'][:])
+    fechas = np.array(fechas).reshape(plev_values.shape)
+    dates = dates.reshape(plev_values.shape)
+
+    return fechas, dates, plev_values, lat_values, lon_values, sh_values
+
 # =============================================================================
 # Classe BackTrajectories
 # =============================================================================
+
+
 class Follow:
     """
     A class that represents and calculates back trajectories for
@@ -294,7 +331,6 @@ class Follow:
         self.path = path
         self.lati = lati
         self.loni = loni
-
 
     def Trajectories_level_i(self, fechai=None, fechaf=None, delta_t=6,
                              ndays=10, level_i=None, *args, **kwargs):
@@ -587,7 +623,7 @@ class Follow_ERA5(Follow):
     time_ref = '1900-01-01 00:00:00.0'
     time_units = 'h'
 
-    def __init__(self, path=None, lati=4.60971, loni=-74.08175):
+    def __init__(self, path=None, lati=None, loni=None):
         """
         Initialize the `Follow_ERA5` class
 
@@ -596,9 +632,9 @@ class Follow_ERA5(Follow):
         path : str, optional
             Path to the ERA5 data, by default None
         lati : float, optional
-            Latitude of the point to follow, by default 4.60971
+            Latitude of the point to follow, by default None
         loni : float, optional
-            Longitude of the point to follow, by default -74.08175
+            Longitude of the point to follow, by default None
         """
         super().__init__(path, lati, loni)
 
@@ -691,8 +727,8 @@ if __name__ == "__main__":
     path_out = 'procesados/'
 
     # Calculation start coordinates
-    lati = 4.60971
-    loni = -74.08175
+    lati = 6.25184
+    loni = 75.56359
 
     # Start level of the calculation
     level = [825]  # hPa
