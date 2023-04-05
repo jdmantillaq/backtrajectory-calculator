@@ -22,10 +22,9 @@ path_files = 'ERA5_data/'
 # Path where the daily backtrajectories will be saved.
 path_out = 'processed_bt/'
 
-
 # Starting coordinates for the calculation
 lati = 6.25184
-loni = 75.56359
+loni = -75.56359
 
 # Starting level for the calculation
 level = [825]  # hPa
@@ -44,6 +43,9 @@ db = Follow_ERA5(path=path_files, lati=lati, loni=loni)
 
 # The .nc files can be queried in this DataFrame
 db.data_base
+
+
+plot_trajectories = False
 
 # The BT calculation will be done for each day
 # For example, take January 15, 1980, for this day there will be
@@ -70,8 +72,9 @@ for i, date_i in enumerate(timerange):
         # information of the 4 backtrajectories
         db.BT
 
-        # You can plot the backtrajectory for a particular day
-        db.Plot_Trajectories(plot_scatter=True)
+        if plot_trajectories:
+            # You can plot the backtrajectory for a particular day
+            db.Plot_Trajectories(plot_scatter=True)
 
         file_out = f'{path_out}{name_file}'
 

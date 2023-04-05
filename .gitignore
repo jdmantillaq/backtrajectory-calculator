@@ -9,6 +9,7 @@ __pycache__/
 # folders
 #ERA5_data/
 processed_bt/*
+processed_bt/**/*
 
 # Distribution / packaging
 .Python

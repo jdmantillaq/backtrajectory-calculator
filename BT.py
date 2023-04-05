@@ -513,8 +513,15 @@ class Follow:
                          BT=True, *args, **kwargs):
         """
         Compute the new location of the air parcel after a time step using
-        the zero acceleration solution to the differential trajectory equation:
+        the zero acceleration solution to the differential
+        trajectory equation  Stohl (1998):
+        
             X(t_1) = X(t_0)+(delta_t)*V(t_0)
+            
+        Andreas Stohl, Computation, accuracy and applications of 
+        trajectories—A review and bibliography, Atmospheric Environment, 
+        Volume 32, Issue 6, 1998, Pages 947-966, ISSN 1352-2310,
+        https://doi.org/10.1016/S1352-2310(97)00457-3.
 
         Args:
             lat0 (float): Initial latitude in degrees.
