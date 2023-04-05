@@ -3,21 +3,7 @@ import numpy as np
 import pandas as pd
 import cdsapi
 import os
-
-
-def walk_path_target(path, target):
-    # function to walk through the directory path and find target file(s)
-    import glob  # importing glob library to find pathnames matching a
-    # specified pattern
-    import os  # importing os library to interact with the operating system
-    return np.sort([y for x in os.walk(path) for y
-                    in glob.glob(os.path.join(x[0], target))])
-
-
-def create_download_path(path):
-    # function to create a new directory path
-    os.makedirs(path, exist_ok=True)
-
+from BT import create_download_path
 
 # define a dictionary with variable names and their corresponding
 # parameter values
@@ -31,6 +17,7 @@ level = [825]
 
 # define the directory path to save the downloaded data
 directory = 'ERA5_data/'
+create_download_path(directory)
 
 # define the time range for which data needs to be downloaded
 time_range = pd.date_range('1980-01-01', '1980-02-01', freq='D')
@@ -41,14 +28,14 @@ lat_max = 25
 lon_min = -100
 lon_max = -34
 
-# loop through all the variable names and their 
+# loop through all the variable names and their
 # corresponding parameter values
 for var_i, field_era in variables.items():
     print(var_i)
-    # loop through all the pressure levels for which data needs 
+    # loop through all the pressure levels for which data needs
     # to be downloaded
     for level_i in level:
-        # loop through all the dates in the time range for which 
+        # loop through all the dates in the time range for which
         # data needs to be downloaded
         for i, date in enumerate(time_range):
             # create a file name using variable name, pressure level,
@@ -70,7 +57,7 @@ for var_i, field_era in variables.items():
                 # specify the parameters for the data download
                 c.retrieve(
                     'reanalysis-era5-pressure-levels',
-                    {   
+                    {
                         'product_type': 'reanalysis',
                         'format': 'netcdf',
                         'variable': field_era,
@@ -83,8 +70,6 @@ for var_i, field_era in variables.items():
                     },
                     # specify the path to save the downloaded file
                     f'{path_i}{file_i}')
-
-
 
 
 # %%

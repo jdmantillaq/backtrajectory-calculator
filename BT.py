@@ -19,6 +19,12 @@ sns.set(style="whitegrid")
 sns.set_context('notebook', font_scale=1.2)
 
 
+def create_download_path(path):
+    # function to create a new directory path
+    import os
+    os.makedirs(path, exist_ok=True)
+
+
 def Continentes_lon_lat(ax):
     """
     Creates a plot of continents using longitude and latitude coordinates.
