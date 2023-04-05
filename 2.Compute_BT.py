@@ -17,10 +17,10 @@ location.
 '''
 
 # Path where ERA5 data is stored
-path_files = 'datos/'
+path_files = 'ERA5_data/'
 
 # Path where the daily backtrajectories will be saved.
-path_out = 'procesados/'
+path_out = 'processed_bt/'
 
 # Starting coordinates for the calculation
 lati = 6.25184

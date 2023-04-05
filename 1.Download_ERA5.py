@@ -35,6 +35,12 @@ directory = 'ERA5_data/'
 # define the time range for which data needs to be downloaded
 time_range = pd.date_range('1980-01-01', '1980-02-01', freq='D')
 
+# define the geographic limits for downloading the information
+lat_min = -15
+lat_max = 25
+lon_min = -100
+lon_max = -34
+
 # loop through all the variable names and their 
 # corresponding parameter values
 for var_i, field_era in variables.items():
@@ -73,7 +79,7 @@ for var_i, field_era in variables.items():
                         'month': f'{date.strftime("%m")}',
                         'day': f'{date.strftime("%d")}',
                         'time': ['00:00', '06:00', '12:00', '18:00'],
-                        'area': [25, -100, -15, -34],
+                        'area': [lat_max, lon_min, lat_min, lon_max],
                     },
                     # specify the path to save the downloaded file
                     f'{path_i}{file_i}')

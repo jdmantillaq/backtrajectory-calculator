@@ -648,8 +648,8 @@ class Follow_ERA5(Follow):
         df['path'] = lista
 
         # Dataset properties
-        print('\nCargando propiedades del objeto '
-              f'de:\n\t{df.loc[0, "path"]}')
+        print('\nLoading properties from:'
+              f'\n\t{df.loc[0, "path"]}')
         Variable = Dataset(df.loc[0, 'path'], 'r')
 
         self.lat_dataset = np.array(Variable.variables['latitude'][:])
@@ -721,14 +721,14 @@ class Follow_ERA5(Follow):
 if __name__ == "__main__":
 
     # Path where ERA5 data is stored
-    path_files = 'datos/'
+    path_files = 'ERA5_data/'
 
     # Route where the backtrajectories will be stored per day.
-    path_out = 'procesados/'
+    path_out = 'processed_bt/'
 
     # Calculation start coordinates
     lati = 6.25184
-    loni = 75.56359
+    loni = -75.56359
 
     # Start level of the calculation
     level = [825]  # hPa
@@ -782,3 +782,5 @@ if __name__ == "__main__":
                 save_nc(dictionary=db.BT, file_out=file_out)
                 print(f'\t{name_file}: OK')
             print('-'*85)
+
+# %%
