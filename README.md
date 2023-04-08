@@ -11,7 +11,7 @@ $$
 X(t_1) = X(t_0) + (\Delta t) \cdot V(t_0)
 $$
 
-This method provides a simple and efficient way to track air parcels backward in time using ERA5 reanalysis data.
+A smaller `delta_t` (time step) generally leads to a lower error in the backtrajectory calculation. However, smaller time steps may also increase the computational time. It is recommended to balance the choice of `delta_t` based on the desired accuracy and available computational resources.
 
 **Reference:**
 Andreas Stohl, Computation, accuracy and applications of trajectories—A review and bibliography, Atmospheric Environment, Volume 32, Issue 6, 1998, Pages 947-966, ISSN 1352-2310, https://doi.org/10.1016/S1352-2310(97)00457-3.
@@ -21,7 +21,7 @@ The data used in this code is from the ERA5 dataset, which is a global atmospher
 
 
 ## Usage
-1.  **Download ERA5 Data**
+1. **Download ERA5 Data**
 
     The first script `1.Download_ERA5`.py downloads the required ERA5 data for a region over South America and the Caribbean using the Climate Data Store API and stores it in a folder (e.g., `ERA5_data/`). The script also contains utility functions for walking through directories, creating new directory paths, and downloading the ERA5 data.
 
@@ -31,6 +31,7 @@ The data used in this code is from the ERA5 dataset, which is a global atmospher
     -   `directory`: The directory path to save the downloaded data.
     -   `time_range`: The time range for which data needs to be downloaded.
     -   `lat_min`, `lat_max`, `lon_min`, `lon_max`: The geographic limits for downloading the information.
+    -   `delta_t`: The time step for downloading the information.
 
     **Usage**
 
@@ -39,9 +40,10 @@ The data used in this code is from the ERA5 dataset, which is a global atmospher
     3. Specify the directory path to save the downloaded data in directory.
     4. Set the time range for which data needs to be downloaded in time_range.
     5. Define the geographic limits for downloading the information by setting lat_min, lat_max, lon_min, and lon_max.
-    6. Run the `1.Download_ERA5.py` script to download the ERA5 data for the specified region, pressure levels, and date range. The data will be saved in the specified directory with one folder per year.
+    6. Set the time step (`delta_t`) for downloading the information.
+    7. Run the `1.Download_ERA5.py` script to download the ERA5 data for the specified region, pressure levels, and date range. The data will be saved in the specified directory with one folder per year.
 
-        After running the 1.Download_ERA5.py script, you will have the necessary ERA5 data saved in the specified folder (e.g., `ERA5_data/`). You can then proceed to run the `2.Compute_BT.py` script to calculate the backtrajectories using the downloaded ERA5 data.
+    After running the 1.Download_ERA5.py script, you will have the necessary ERA5 data saved in the specified folder (e.g., `ERA5_data/`). You can then proceed to run the `2.Compute_BT.py` script to calculate the backtrajectories using the downloaded ERA5 data.
 
 2. **Compute Backtrajectories**
 
@@ -84,7 +86,8 @@ To run the script, the following Python libraries are required:
 Make sure to install these libraries before running the script. You can install them using pip:
 ```pip install numpy pandas cdsapi netCDF4 matplotlib seaborn cartopy```
 
-
+## CDS API Configuration
+Before running `1.Download_ERA5.py`, configure the Climate Data Store API (`cdsapi`) to download ERA5 data by following the instructions at https://cds.climate.copernicus.eu/api-how-to.
 
 ## License
 This project is licensed under the MIT License - see the `LICENSE` file for details.

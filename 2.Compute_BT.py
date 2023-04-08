@@ -35,7 +35,7 @@ delta_t = 6   # hours
 
 # Dates for the calculations
 # These are the dates that should be changed for the desired study dates
-timerange = pd.date_range('1980-01-15', '1980-01-20', freq='d')
+timerange = pd.date_range('2022-01-01', '2022-12-31', freq='d')
 
 # The db (database) object is loaded with the necessary data to perform
 # the calculations. The properties are extracted from the read files
@@ -48,7 +48,7 @@ db.data_base
 plot_trajectories = False
 
 # The BT calculation will be done for each day
-# For example, take January 15, 1980, for this day there will be
+# For example, take January 1, 2022, for this day there will be
 # 4 backtrajectories, started independently at
 # 00:00, 06:00, 12:00, and 18:00, with a time resolution of 6 hours and a
 # travel time of 10 days.

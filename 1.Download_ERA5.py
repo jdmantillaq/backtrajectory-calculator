@@ -15,18 +15,26 @@ variables = {'uwnd': 'u_component_of_wind',
 # define the pressure level to be downloaded
 level = [825]
 
-# define the directory path to save the downloaded data
+# Define the directory path to save the downloaded data
 directory = 'ERA5_data/'
+# Create the download directory if it doesn't exist
 create_download_path(directory)
 
 # define the time range for which data needs to be downloaded
-time_range = pd.date_range('1980-01-01', '1980-02-01', freq='D')
+time_range = pd.date_range('2021-12-20', '2022-12-31', freq='D')
 
 # define the geographic limits for downloading the information
 lat_min = -15
 lat_max = 25
-lon_min = -100
-lon_max = -34
+lon_min = -110
+lon_max = -20
+
+# Define the time step (delta_t) for downloading the information
+delta_t = 6
+
+# Create a list of time steps formatted as strings
+# (e.g., '00:00', '06:00', ...)
+time_vector = [f'{i:02}:00' for i in list(range(0, 24, delta_t))]
 
 # loop through all the variable names and their
 # corresponding parameter values
@@ -65,7 +73,7 @@ for var_i, field_era in variables.items():
                         'year': f'{date.strftime("%Y")}',
                         'month': f'{date.strftime("%m")}',
                         'day': f'{date.strftime("%d")}',
-                        'time': ['00:00', '06:00', '12:00', '18:00'],
+                        'time': time_vector,
                         'area': [lat_max, lon_min, lat_min, lon_max],
                     },
                     # specify the path to save the downloaded file

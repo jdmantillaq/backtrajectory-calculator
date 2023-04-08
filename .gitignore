@@ -7,7 +7,7 @@ __pycache__/
 *.so
 
 # folders
-#ERA5_data/
+ERA5_data/*
 processed_bt/*
 processed_bt/**/*
 

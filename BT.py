@@ -751,7 +751,7 @@ if __name__ == "__main__":
     delta_t = 6   # hours
 
     # Dates on which the calculation is to be performed
-    timerange = pd.date_range('1980-01-15', '1980-01-20', freq='d')
+    timerange = pd.date_range('2022-01-01', '2022-12-31', freq='d')
 
     # The db (database) object is loaded with the data needed to perform the
     # calculations. The properties are extracted from the read files.
@@ -761,7 +761,7 @@ if __name__ == "__main__":
     db.data_base
 
     # the calculation of the BT will be done for each day.
-    # For example, January 15, 1980 is taken, for this day 4 backtrajectories
+    # For example, January 1, 2022, is taken, for this day 4 backtrajectories
     # will be calculated, starting independently at 00:00, 06:00, 12:00 and
     # 18:00, with a time resolution of 6 hours and a travel time of 10 days.
     for i, date_i in enumerate(timerange):
