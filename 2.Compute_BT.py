@@ -21,6 +21,8 @@ path_files = 'ERA5_data/'
 
 # Path where the daily backtrajectories will be saved.
 path_out = 'processed_bt/'
+# Create the directory if it doesn't exist
+create_download_path(path_out)
 
 # Starting coordinates for the calculation
 lati = 6.25184
@@ -44,7 +46,6 @@ db = Follow_ERA5(path=path_files, lati=lati, loni=loni)
 # The .nc files can be queried in this DataFrame
 db.data_base
 
-
 plot_trajectories = False
 
 # The BT calculation will be done for each day
@@ -53,16 +54,20 @@ plot_trajectories = False
 # 00:00, 06:00, 12:00, and 18:00, with a time resolution of 6 hours and a
 # travel time of 10 days.
 for i, date_i in enumerate(timerange):
-    
+
     for level_i in level:
         # Filename, corresponding to the day evaluated
         date_name = f'{date_i.strftime("%Y%m%d")}'
+
+        name_file = f'BT.{delta_t}h.{level_i}hPa.{date_name}.nc'
+        file_out = f'{path_out}{name_file}'
+        if os.path.exists(file_out):
+            continue
 
         # limit to one day of calculation
         fechai = date_i.strftime('%Y-%m-%d 00:00')
         fechaf = date_i.strftime('%Y-%m-%d 23:59')
         print(f'{fechai} -----> {fechaf}')
-        name_file = f'BT.{delta_t}h.{level_i}hPa.{date_name}.nc'
 
         # Calculate backtrajectories for a particular day
         db.Trajectories_level_i(fechai=fechai, fechaf=fechaf, delta_t=delta_t,
@@ -76,10 +81,7 @@ for i, date_i in enumerate(timerange):
             # You can plot the backtrajectory for a particular day
             db.Plot_Trajectories(plot_scatter=True)
 
-        file_out = f'{path_out}{name_file}'
-
         # Save a BT file with the backtrajectory information
-        if not os.path.exists(file_out):
-            save_nc(dictionary=db.BT, file_out=file_out)
-            print(f'\t{name_file}: OK')
+        save_nc(dictionary=db.BT, file_out=file_out)
+        print(f'\t{name_file}: OK')
         print('-'*85)

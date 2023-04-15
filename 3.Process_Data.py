@@ -65,8 +65,9 @@ fechas = pd.to_datetime("1900-01-01 00:00:00") \
 
 # Starting coordinates for the calculation
 lati = 6.25184
-loni = 75.56359
+loni = -75.56359
 
+#%%
 figsize = (10, 6)
 img_extent = (-95, -30, -20, 30)
 cmap = 'viridis'
@@ -79,9 +80,16 @@ ax = Continentes_lon_lat(ax)
 ax.set_extent(img_extent, ccrs.PlateCarree())
 
 (dates_dim, back_step_dim) = lon.shape
+
+for di in range(dates_dim):
+    ax.plot(lon[di, :], lat[di, :], color='black', alpha=0.3, zorder=0)
+    
 for di in range(dates_dim):
     c = ax.scatter(lon[di, :], lat[di, :], c=sh[di, :], cmap=cmap,
                    vmin=vmin, vmax=vmax)
+    
 plt.colorbar(c, label='kg kg**-1')
 
 ax.scatter(loni, lati, marker='*', c='firebrick', s=80)
+
+# %%
