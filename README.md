@@ -3,6 +3,9 @@
 This repository contains Python code to calculate backtrajectories using a Lagrangian method based on ERA5 reanalysis data.
 The script relies on the custom BT library to perform the necessary calculations and save the output as NetCDF files.
 
+<img src="figures/backtrajectories.png" alt="bactrajectories" width="500"/>
+
+
 ## Lagrangian trajectories Algorithm 
 
 The backtrajectory calculation algorithm used in this repository is based on the Lagrangian method proposed by Stohl (1998). This method computes the new location of an air parcel after a time step using the zero acceleration solution to the differential trajectory equation. The equation is as follows:
@@ -65,6 +68,15 @@ The data used in this code is from the ERA5 dataset, which is a global atmospher
     **Example**:
 
     For a sample date range from January 15th to January 20th, 1980, with starting coordinates (6.25184, -75.56359), a pressure level of 825 hPa, a time resolution of 6 hours, and a backtrajectory duration of 10 days, the script calculates backtrajectories for each day and saves the output as NetCDF files in the specified output folder.
+
+## Clustering Backtrajectories
+
+The third script, `3.Process_Data.py`, applies clustering algorithms to the computed backtrajectories to identify common patterns or clusters in the data. This script can be used to examine air mass pathways over time, and can help provide insights into potential sources of air pollution, among other things.
+
+
+<img src="figures/05_cluster.png" alt="cluster_5" width="500"/>
+<img src="figures/06_cluster.png" alt="cluster_6" width="500"/>
+
 
 
 ## Dependencies
